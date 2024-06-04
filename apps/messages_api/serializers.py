@@ -29,8 +29,7 @@ class MessageSerializer(serializers.Serializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        list = self.context.get('list')
-        if list:
+        if self.context.get('view').action == 'list':
             if len(representation['text']) > 64:
                 representation['text'] = representation['text'][:64] + '...'
 
