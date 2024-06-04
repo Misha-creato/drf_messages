@@ -1,18 +1,25 @@
 from django.urls import path
 
-from messages_api.views import (
-    MessageList,
-    MessageDetail,
+from messages_api.api import (
+    MessageView,
 )
 
 
 urlpatterns = [
     path(
         '',
-        MessageList.as_view(),
+        MessageView.as_view({
+            'get': 'list',
+            'post': 'create',
+        }),
     ),
     path(
         '<str:pk>/',
-        MessageDetail.as_view(),
+        MessageView.as_view({
+            'get': 'retrieve',
+            'put': 'update',
+            'patch': 'partial_update',
+            'delete': 'destroy',
+        }),
     ),
 ]
